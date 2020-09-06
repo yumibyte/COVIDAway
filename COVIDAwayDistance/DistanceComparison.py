@@ -8,7 +8,6 @@ def reverseGeocode(coordinates):
 
     # result is a list containing ordered dictionary.
     return (result[0]['name'])
-
 # Distance Matrix API
 def decending(full_list):
         return sorted(full_list, key=lambda k: k['distance in kilometers'])
