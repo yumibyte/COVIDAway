@@ -54,7 +54,7 @@ class MainView(View):
         return False
 
     def write_individual(self, submission):
-        i = Individual(name=submission['name'], email=submission['email'], people=int(submission['people']), lat=float(submission['lat']), long=float(submission['long']), time=timezone.now())
+        i = Individual(name=submission['name'], email=submission['email'], people=int(submission['people']), address=submission['address'], time=timezone.now())
 
         if 'need_gloves' in submission:
             i.need_gloves = True
