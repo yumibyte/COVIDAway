@@ -46,7 +46,9 @@ class MainView(View):
             i.notes = submission['notes']
 
         i.save()
-        return
+        
+    def write_distributor(self, submission):
+        d = Distributor(name=submission['name'], email=submission['email'], nomasks=int(submission['nomasks']), noshields=int(submissions['noshields']), nogloves=int(submissions['nogloves']),  lat=float(submission['lat']), long=float(submission['long']), time=timezone.now()))
 
     #When a user goes to the page without posting data
     def get(self, request):
