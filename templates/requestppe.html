@@ -33,7 +33,28 @@
             <p>Geolocation Placeholder</p>
             <label>Notes</label><input class="form-control" type="text" name="notes" maxlength="5000">
             <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>
+
+            <input id="Latitude" type="hidden" name="lat" value="">
+            <input id="Longitude" type="hidden" name="long" value="">
         </form>
+
+        <script>
+            if (navigator.geolocation) 
+            {
+                navigator.geolocation.getCurrentPosition(updateCoords);
+            }
+            else
+            {
+                alert("Your location must be enabled for this site to work properly!");
+            }
+            
+            function updateCoords(position) 
+            {
+                document.getElementById("Latitude").value = position.coords.latitude;
+                document.getElementById("Longitude").value = position.coords.longitude;
+            }
+        </script>
+
     </div>
 </body>
 

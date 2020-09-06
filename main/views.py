@@ -17,6 +17,8 @@ class MainView(View):
     def check_sub(self, submission):
         #SUBMISSION DICTIONARY - name, email, people, need_gloves, need_faceshields, need_facemasks, notes
         print("Checking...")
+        #if submission['lat'] is not "" and submission['long'] is not "":
+            #print("Coords passed")
         if submission['name'].replace(" ", "").isalpha() and len(submission['name']) < 255:
             print("Name passed")
             if submission['email'].replace("@", "").replace(".","").isalnum() and "@" in submission['email'] and "." in submission['email'].split("@")[1] and len(submission['email']) < 255:
@@ -32,7 +34,7 @@ class MainView(View):
         return False
 
     def write_individual(self, submission):
-        i = Individual(name=submission['name'], email=submission['email'], people=int(submission['people']), time=timezone.now())
+        i = Individual(name=submission['name'], email=submission['email'], people=int(submission['people']), lat=float(submission['lat']), long=float(submission['long']), time=timezone.now())
 
         if 'need_gloves' in submission:
             i.need_gloves = True
