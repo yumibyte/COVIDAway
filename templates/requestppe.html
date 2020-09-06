@@ -6,9 +6,12 @@
     <div class="contact-clean">
         <h1 style="text-align: center;">COVIDAway</h1>
         <form method="POST"> {% csrf_token %}
+            <input id="ID" type="hidden" name="user_type" value="individual">
+
             <h2 class="text-center">Get your PPE</h2>
             <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name" maxlength="255" required></div>
             <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" maxlength="255" required></div>
+            <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address" maxlength="255"></div>
             <input class="form-control" type="number" name="people" placeholder="Number of People" min="1" max="9999" required>
             <div class="form-group">
                 <div class="form-check">
@@ -30,30 +33,9 @@
                     </label>
                   </div>
             </div>
-            <p>Geolocation Placeholder</p>
             <label>Notes</label><input class="form-control" type="text" name="notes" maxlength="5000">
             <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>
-
-            <input id="Latitude" type="hidden" name="lat" value="">
-            <input id="Longitude" type="hidden" name="long" value="">
         </form>
-
-        <script>
-            if (navigator.geolocation) 
-            {
-                navigator.geolocation.getCurrentPosition(updateCoords);
-            }
-            else
-            {
-                alert("Your location must be enabled for this site to work properly!");
-            }
-            
-            function updateCoords(position) 
-            {
-                document.getElementById("Latitude").value = position.coords.latitude;
-                document.getElementById("Longitude").value = position.coords.longitude;
-            }
-        </script>
 
     </div>
 </body>

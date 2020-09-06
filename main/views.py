@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
-from main.models import Individual
+from main.models import Individual, Distributor
 
 # Create your views here.
 
 class MainView(View):
+    url = ""
     #Establish a dictionary that will be sent to the template html
     #context = { }
 
@@ -16,21 +17,40 @@ class MainView(View):
 
     def check_sub(self, submission):
         #SUBMISSION DICTIONARY - name, email, people, need_gloves, need_faceshields, need_facemasks, notes
-        print("Checking...")
         #if submission['lat'] is not "" and submission['long'] is not "":
             #print("Coords passed")
-        if submission['name'].replace(" ", "").isalpha() and len(submission['name']) < 255:
-            print("Name passed")
-            if submission['email'].replace("@", "").replace(".","").isalnum() and "@" in submission['email'] and "." in submission['email'].split("@")[1] and len(submission['email']) < 255:
-                print("Email passed")
-                if submission['people'].isdigit() and int(submission['people']) in range(1, 10000): #people must be < 10,000
-                    print("People passed")
-                    if 'need_gloves' not in submission or 'need_faceshields' not in submission or 'need_facemasks' not in submission:
-                        print("PPE passed")
-                        if len(submission['notes']) < 5000:
-                            print("Notes passed")
-                            self.write_individual(submission)
-                            return True
+
+        print("Checking...")
+        if submission['user_type'] == "individual":
+            print("User_type: Individual")
+            if submission['name'].replace(" ", "").isalpha() and len(submission['name']) < 255:
+                print("Name passed")
+                if submission['email'].replace("@", "").replace(".","").isalnum() and "@" in submission['email'] and "." in submission['email'].split("@")[1] and len(submission['email']) < 255:
+                    print("Email passed")
+                    if submission['people'].isdigit() and int(submission['people']) in range(1, 10000): #people must be < 10,000
+                        print("People passed")
+                        if 'need_gloves' not in submission or 'need_faceshields' not in submission or 'need_facemasks' not in submission:
+                            print("PPE passed")
+                            if len(submission['notes']) < 5000:
+                                print("Notes passed")
+                                self.write_individual(submission)
+                                return True
+        elif submission['user_type'] == "distributor":
+            print("User_type: Distributor")
+            if submission['name'].replace(" ", "").isalpha() and len(submission['name']) < 255:
+                print("Name passed")
+                if submission['website'].replace(".","").isalpha() and len(submission['website']) < 255:
+                    print("Website passed")
+                    if submission['nogloves'].isdigit() and int(submission['nogloves']) in range(1, 2000000000): #people must be < 10,000
+                        print("Nogloves passed")
+                        if submission['noshields'].isdigit() and int(submission['noshields']) in range(1, 2000000000): #people must be < 10,000
+                            print("Noshields passed")
+                            if submission['nomasks'].isdigit() and int(submission['nomasks']) in range(1, 2000000000): #people must be < 10,000
+                                print("Nomasks passed")
+                                if len(submission['desc']) < 5000:
+                                    print("Desc passed")
+                                    self.write_distributor(submission)
+                                    return True
         return False
 
     def write_individual(self, submission):
@@ -48,11 +68,18 @@ class MainView(View):
         i.save()
         
     def write_distributor(self, submission):
+<<<<<<< HEAD
+        Distributor(name=submission['name'], website=submission['website'], address=submission['address'], nogloves=int(submission['nogloves']), noshields=int(submission['noshields']), nomasks=int(submission['nomasks'])).save()
+=======
         d = Distributor(name=submission['name'], email=submission['email'], nomasks=int(submission['nomasks']), noshields=int(submissions['noshields']), nogloves=int(submissions['nogloves']),  lat=float(submission['lat']), long=float(submission['long']), time=timezone.now())
+>>>>>>> master
 
     #When a user goes to the page without posting data
     def get(self, request):
-        return self.load_page(request, 'requestppe.html')
+        if self.url == "donateppe":
+            return self.load_page(request, 'donateppe.html')
+        else:
+            return self.load_page(request, 'requestppe.html')
 
     #When the user posts data to the server
     def post(self, request):

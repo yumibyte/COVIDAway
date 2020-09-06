@@ -4,39 +4,25 @@
 
 <body>
     <div class="contact-clean">
-        <form method="post">
+        <h1 style="text-align: center;">COVIDAway</h1>
+        <form method="POST"> {% csrf_token %}
+            <input id="ID" type="hidden" name="user_type" value="distributor">
+
             <h2 class="text-center">Donate your PPE</h2>
-            <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name"></div>
-            <div class="form-group"><input class="form-control is-invalid" type="email" name="email" placeholder="Email"><small class="form-text text-danger">Please enter a correct email address.</small></div>
-            <div class="form-group"><input class="form-control" type="number" placeholder="Number of Face Shields"></div><input class="form-control" type="number" placeholder="Number of Face Masks">
-            <div class="form-group"><input class="form-control" type="number" placeholder="Number of Gloves"></div>
-            <p>Placeholder</p><input class="form-control" type="text" placeholder="Notes">
+            <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name" maxlength="255"></div>
+            <div class="form-group"><input class="form-control" type="text" name="website" placeholder="Website Url" maxlength="255"></div>
+            <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address" maxlength="255"></div>
+            <div class="form-group">
+                <input class="form-control" type="number" name="nogloves" placeholder="Number of Gloves" min="1" max="2000000000" required>
+                <input class="form-control" type="number" name="noshields" placeholder="Number of Face Shields" min="1" max="2000000000" required>
+                <input class="form-control" type="number" name="nomasks" placeholder="Number of Face Masks" min="1" max="2000000000" required>
+            </div>
+            <input class="form-control" type="text" name="desc" placeholder="Description of company" maxlength="5000" required>
             <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>
             <input id="Latitude" type="hidden" name="lat" value="">
             <input id="Longitude" type="hidden" name="long" value="">
         </form>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-            if (navigator.geolocation) 
-            {
-                navigator.geolocation.getCurrentPosition(updateCoords);
-            }
-            else
-            {
-                alert("Your location must be enabled for this site to work properly!");
-            }
-            
-            function updateCoords(position) 
-            {
-                document.getElementById("Latitude").value = position.coords.latitude;
-                document.getElementById("Longitude").value = position.coords.longitude;
-            }
-        </script>
 </body>
-
-</html>
-
 
 {% endblock %}
