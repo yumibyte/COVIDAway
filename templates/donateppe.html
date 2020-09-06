@@ -14,27 +14,6 @@
             <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>
         </form>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-            if (navigator.geolocation) 
-            {
-                navigator.geolocation.getCurrentPosition(updateCoords);
-            }
-            else
-            {
-                alert("Your location must be enabled for this site to work properly!");
-            }
-            
-            function updateCoords(position) 
-            {
-                document.getElementById("Latitude").value = position.coords.latitude;
-                document.getElementById("Longitude").value = position.coords.longitude;
-            }
-        </script>
 </body>
-
-</html>
-
 
 {% endblock %}

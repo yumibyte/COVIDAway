@@ -6,6 +6,7 @@ from main.models import Individual
 # Create your views here.
 
 class MainView(View):
+    url = ""
     #Establish a dictionary that will be sent to the template html
     #context = { }
 
@@ -48,11 +49,14 @@ class MainView(View):
         i.save()
         
     def write_distributor(self, submission):
-        d = Distributor(name=submission['name'], email=submission['email'], nomasks=int(submission['nomasks']), noshields=int(submissions['noshields']), nogloves=int(submissions['nogloves']),  lat=float(submission['lat']), long=float(submission['long']), time=timezone.now()))
+        d = Distributor(name=submission['name'], website=submission['website'], nomasks=int(submission['nomasks']), noshields=int(submissions['noshields']), nogloves=int(submissions['nogloves']), lat=float(submission['lat']), long=float(submission['long']))
 
     #When a user goes to the page without posting data
     def get(self, request):
-        return self.load_page(request, 'requestppe.html')
+        if self.url == "donateppe":
+            return self.load_page(request, 'donateppe.html')
+        else:
+            return self.load_page(request, 'requestppe.html')
 
     #When the user posts data to the server
     def post(self, request):
